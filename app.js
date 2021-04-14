@@ -20,7 +20,41 @@ searchBar.addEventListener('keypress', (e) =>  {
 
 function displayData(weather) {
     console.log(weather)
-   let city = document.querySelector('.city').textContent = `${weather.name}, ${weather.sys.country}`
-   let dis = document.querySelector('.dis').innerHTML = 
-   `${weather.weather[0].description} <img src="http://openweathermap.org/img/w/${weather.weather[0].icon}.png"></img>`
+    let now = new Date()
+
+    let date = document.querySelector('.date')
+    date.innerHTML = dateBuilder(now)
+
+   let city = document.querySelector('.city')
+   city.textContent = `${weather.name}, ${weather.sys.country}`
+
+   let dis = document.querySelector('.dis')
+   dis.innerHTML =  `${weather.weather[0].description} <img src="http://openweathermap.org/img/w/${weather.weather[0].icon}.png"></img>`
+
+   let temp = document.querySelector('.temp')
+   temp.innerHTML = Math.floor(weather.main.temp) + '&deg;' + 'c'
+
+   let minMax = document.querySelector('.min-max')
+   minMax.innerHTML = `${Math.floor(weather.main.temp_min)} &deg;C / ${Math.floor(weather.main.temp_max)} &deg;C`
+//    let sun = convertTime(weather.sys.sunrise)
+//    console.log(sun)
+}
+
+// function convertTime(unixTime){
+//     let dt = new Date(unixTime * 1000)
+//     let h = dt.getHours()
+//     let m = "0" + dt.getMinutes()
+//     let t = h + ":" + m.substr(-2)
+//     return t
+// }
+
+function dateBuilder(d) {
+    let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    let day = days[d.getDay()]
+    let date = d.getDate()
+    let month = months[d.getMonth()]
+    let year = d.getFullYear()
+
+    return `${day} ${date} ${month} ${year}`
 }
